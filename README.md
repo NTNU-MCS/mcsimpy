@@ -1,8 +1,8 @@
-# mcsimpy
-
+[![DOI](https://zenodo.org/badge/884689326.svg)](https://doi.org/10.5281/zenodo.17274093)
 ![Build Status](https://github.com/NTNU-MCS/mcsimpy/actions/workflows/run_tests.yml/badge.svg)
-
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+# mcsimpy
 
 Vessel simulator used in master project and master thesis of M. Kongshaug, H. Mo, E. Midtun and J. Hygen. The project is developed at Norwegian University of Science and Technology, Institue of Marine Technology.
 
