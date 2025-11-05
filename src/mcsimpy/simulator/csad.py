@@ -5,7 +5,7 @@
 # Created By: Jan-Erik Hygen
 # Created Date: 2022-11-04
 # Revised:
-#
+# Kristian Magnus Roen 06.11.25 Removed bug print and added dt fallback
 # Copyright (C) 2023: NTNU, Trondheim
 # Licensed under GPL-3.0-or-later
 # ---------------------------------------------------------------------------
@@ -111,7 +111,7 @@ class CSAD_DP_6DOF(Vessel):
     """
 
     def __init__(
-        self, dt, *args, method="Euler", config_file="vessel_json.json", dof=6, **kwargs
+        self, dt=0.01, *args, method="Euler", config_file="vessel_json.json", dof=6, **kwargs
     ):
         config_file = os.path.join(DATA_DIR, config_file)
         super().__init__(dt, config_file=config_file, method=method, dof=6)
@@ -194,7 +194,6 @@ class CSAD_DP_6DOF(Vessel):
         if type(freq) not in [list, np.ndarray]:
             freq = [freq]
         freq = np.asarray(freq)
-        print(freq.shape)
         if (freq.shape[0] > 1) and (freq.shape[0] != self._dof):
             raise ValueError(
                 f"Argument freq: {freq} must either be a float or have shape n = {self._dof}. \
