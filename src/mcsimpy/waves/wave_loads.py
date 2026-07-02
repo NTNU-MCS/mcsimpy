@@ -134,10 +134,19 @@ class WaveLoad:
         self._rho = rho
         self._W = freqs[:, None] - freqs
         self._P = eps[:, None] - eps
+        driftfrc_amp = np.asarray(vessel_params['driftfrc']['amp'])[:, :, :, 0]
+        if driftfrc_amp.shape[0] < 6:
+            # ShipX/WAMIT only ever compute the mean drift force for
+            # surge/sway/yaw. Some pipelines zero-pad this to 6 DOF when
+            # writing the json (e.g. the VERES/CSAD data); others (e.g. the
+            # raw MSS `wamit2vessel` struct) don't, so pad it here.
+            padded = np.zeros((6,) + driftfrc_amp.shape[1:])
+            padded[: driftfrc_amp.shape[0]] = driftfrc_amp
+            driftfrc_amp = padded
         self._Q = self._full_qtf_6dof(
             np.asarray(vessel_params['headings']),
-            np.asarray(vessel_params['freqs']),
-            np.asarray(vessel_params['driftfrc']['amp'])[:, :, :, 0],
+            np.asarray(vessel_params['driftfrc']['w']),
+            driftfrc_amp,
             method=qtf_method,
             interpolate=interpolate,
             qtf_interp_angles=qtf_interp_angles
@@ -159,7 +168,7 @@ class WaveLoad:
         """
         amp = np.array(self._params['forceRAO']['amp'])[:, :, :, 0]
         phase = np.deg2rad(np.array(self._params['forceRAO']['phase'])[:, :, :, 0]) #changed to rad
-        freqs = np.array(self._params['freqs'])
+        freqs = np.array(self._params['forceRAO']['w'])
 
         if interpolate:
             f1 = interp1d(freqs, np.abs(amp), axis=1, bounds_error=False, fill_value=(amp[:,0,:], 0))

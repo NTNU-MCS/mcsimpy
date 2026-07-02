@@ -1,0 +1,3 @@
+[submodule "data/mcmodels"]
+	path = data/mcmodels
+	url = https://github.com/NTNU-MCS/mcmodels

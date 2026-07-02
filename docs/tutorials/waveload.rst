@@ -64,7 +64,7 @@ we are using the RV Gunnerus 6 DOF simulation model.
     simtime = 600   # 10 minute simulation
     time = np.arange(0, simtime, dt)
 
-    vessel = RVG_DP_6DOF(dt, method="RK4") # RVG model with RK4 intergration method.
+    vessel = RVG_DP_6DOF(dt) # RVG model, integrated with RK4.
 
     dw = (wmax - wmin)/N      # Space between each frequency component
     wave_amps = np.sqrt(2*wave_spectra*dw)   # Calculate wave amplitudes

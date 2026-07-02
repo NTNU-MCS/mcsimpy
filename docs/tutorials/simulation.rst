@@ -18,9 +18,9 @@ As this is a model scale vessel, we must use a small time step due to its high e
     time = np.arange(0, simtime, dt)
 
     # Initialize a the simulation object
-    vessel = CSADMan3DOF(dt=dt, method="RK4")
+    vessel = CSADMan3DOF(dt=dt)
 
-Here we have specified to use 4th-order Runge-Kutta integration method. An alternative is to use the defualt forward Euler.
+The vessel is integrated forward in time using 4th-order Runge-Kutta, the only supported integration method.
 
 To have something more interesting than just a simulation without any loads, we will define a current and a constant load.
 
